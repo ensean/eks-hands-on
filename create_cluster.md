@@ -36,6 +36,7 @@ eksctl version    # 确认安装成功
 ```
 
 ### 3. 创建集群
+
 ```shell
 # 参数说明
 #--node-type 工作节点类型 默认为m5.large
@@ -43,6 +44,12 @@ eksctl version    # 确认安装成功
 # --version 
 export CLUSTER_NAME=eksworkshop
 eksctl create cluster --name=${CLUSTER_NAME} --node-type m6i.large --managed --version 1.23
+
+# 等待以上命令执行完成后（约3~5分钟），执行如下命令确认集群创建成功
+kubectl get nodes
+NAME                                                STATUS   ROLES    AGE   VERSION
+ip-192-168-36-125.ap-northeast-1.compute.internal   Ready    <none>   29h   v1.23.13-eks-fb459a0
+ip-192-168-70-130.ap-northeast-1.compute.internal   Ready    <none>   29h   v1.23.13-eks-fb459a0
 
 # 或使用yaml文件创建，请参考
 https://www.eksworkshop.com/030_eksctl/launcheks/
