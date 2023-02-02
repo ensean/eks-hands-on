@@ -14,9 +14,15 @@ $ aws configure
 AWS Access Key ID : <AK>
 AWS Secret Access Key : <SK>
 Default region name: <区域代码，如新加坡为ap-southeast-1>
-Default output format [None]:
-#测试AK/SK是否生效
+Default output format [None]:json
+
+#测试AK/SK是否生效,有类似如下输出则表示配置生效
 aws sts get-caller-identity
+{
+    "UserId": "AIDAVY4EIOPQFCK******",
+    "Account": "397****81984",
+    "Arn": "arn:aws:iam::397****81984:user/eksops"
+}
 
 # 安装k8s管理工具kubectl https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
 sudo curl --silent --location -o /usr/local/bin/kubectl \
