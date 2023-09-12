@@ -1,0 +1,28 @@
+--- 
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks127                # cluster name
+  region: ap-northeast-1      # region code name
+  version: "1.27"             # k8s version string
+
+vpc:
+  id: "vpc-04d4c161399bb8xxx"  # (optional, must match VPC ID used for each subnet below)
+  subnets:
+    # must provide 'private' and/or 'public' subnets by availability zone as shown
+    private:
+      ap-northeast-1a:
+        id: "subnet-08f59e0e1a9890xxx"
+
+      ap-northeast-1c:
+        id: "subnet-006369f34c5346xxx"
+
+      ap-northeast-1d:
+        id: "subnet-0d7de7c2a29272xxx"
+
+managedNodeGroups:
+  - name: ng-apps
+    instanceType: t3.medium
+    desiredCapacity: 4
+    privateNetworking: true # if only 'Private' subnets are given, this must be enabled
