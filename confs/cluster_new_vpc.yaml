@@ -1,6 +1,7 @@
 # An example of ClusterConfig object with custom VPC IPv4 CIDR,
 # and auto-allocated IPv6 CIDRs for all subnets; also without
 # any nodegroups:
+# https://eksctl.io/usage/eks-managed-nodes/
 ---
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
@@ -20,4 +21,7 @@ vpc:
 managedNodeGroups:
   - name: ng-apps
     instanceType: c6g.medium
-    desiredCapacity: 2
+    minSize: 2
+    maxSize: 4
+    desiredCapacity: 3
+    volumeSize: 20
