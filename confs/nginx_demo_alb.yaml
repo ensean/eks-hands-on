@@ -1,0 +1,64 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginxdemo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: nginxdemo
+  name: deployment-nginxdemo
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-nginxdemo
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app-nginxdemo
+    spec:
+      containers:
+      - image: public.ecr.aws/nginx/nginx:stable-perl
+        imagePullPolicy: Always
+        name: app-nginxdemo
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: nginxdemo
+  name: service-nginxdemo
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: NodePort    # target-type为instance时必须指定为NodePort，否则alb创建失败 https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/1695
+  selector:
+    app.kubernetes.io/name: app-nginxdemo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: nginxdemo
+  name: ingress-nginxdemo
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    # 配置安全组入站规则
+    alb.ingress.kubernetes.io/inbound-cidrs: 161.0.0.0/8, 27.0.0.0/8
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: service-nginxdemo
+              port:
+                number: 80
