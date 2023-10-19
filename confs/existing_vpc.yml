@@ -7,6 +7,7 @@ metadata:
   region: ap-northeast-1      # region code name
   version: "1.27"             # k8s version string
 
+# 为确保 aws load balancer controller 能够正常工作，需要手工在公开子网加上标签kubernetes.io/role/elb，值为 1
 vpc:
   id: "vpc-04d4c161399bb8xxx"  # (optional, must match VPC ID used for each subnet below)
   subnets:
@@ -26,3 +27,4 @@ managedNodeGroups:
     instanceType: t3.medium
     desiredCapacity: 4
     privateNetworking: true # if only 'Private' subnets are given, this must be enabled
+
