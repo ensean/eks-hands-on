@@ -6,7 +6,7 @@
 
 #### 3. [使用EBS作为PV] TBD
 
-#### 4. [使用EFS作为PV] TBD
+#### 4. [使用EFS作为PV](4.storage_csi.md)
 
 #### 5. [使用Log Hub解决方案采集应用日志] TBD
 
