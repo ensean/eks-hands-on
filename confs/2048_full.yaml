@@ -50,6 +50,8 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     # 配置安全组入站规则
     alb.ingress.kubernetes.io/inbound-cidrs: 161.0.0.0/8, 27.0.0.0/8
+    # 设置ALB 名称
+    alb.ingress.kubernetes.io/load-balancer-name: game-alb
 spec:
   ingressClassName: alb
   rules:
