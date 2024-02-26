@@ -5,7 +5,7 @@ kind: ClusterConfig
 metadata:
   name: eks127                # cluster name
   region: ap-northeast-1      # region code name
-  version: "1.27"             # k8s version string
+  version: "1.29"             # k8s version string
 
 # 为确保 aws load balancer controller 能够正常工作，需要手工在公开子网加上标签kubernetes.io/role/elb，值为 1
 vpc:
