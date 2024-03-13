@@ -1,0 +1,34 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-addons2
+  region: ap-northeast-1
+  version: "1.28"
+
+vpc:
+  cidr: 10.10.0.0/16
+  hostnameType: resource-name
+  clusterEndpoints:
+    publicAccess: true
+
+managedNodeGroups:
+  - name: ng-apps
+    instanceType: c6i.large
+    minSize: 2
+    maxSize: 4
+    desiredCapacity: 2
+    volumeSize: 20
+    privateNetworking: true
+
+addons:
+- name: vpc-cni # no version is specified so it deploys the default version
+  attachPolicyARNs:
+    - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+- name: coredns
+  version: latest # auto discovers the latest available
+- name: kube-proxy
+  version: latest
+
+iam:
+  withOIDC: true
