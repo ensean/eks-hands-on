@@ -1,0 +1,20 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: change-to-your-eks-cluster-name
+  region: ap-northeast-1
+
+managedNodeGroups:
+  - name: new-worker-public
+    labels: { subnetType: public }
+    instanceType: m5.large
+    desiredCapacity: 1
+    volumeSize: 80
+    privateNetworking: false
+  - name: new-worker-private
+    labels: { subnetType: private }
+    instanceType: c5.2xlarge
+    desiredCapacity: 1
+    volumeSize: 100
+    privateNetworking: true
