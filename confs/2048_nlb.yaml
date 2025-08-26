@@ -34,6 +34,9 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
     service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/load-balancer-source-ranges: 129.0.0.0/8
+
 spec:
   ports:
     - port: 80
